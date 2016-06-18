@@ -1,0 +1,68 @@
+<ion-content class="home">
+    <div padding *ngIf="base64Image">
+        <img src="{{base64Image}}"/>
+    </div>
+    <div padding *ngIf="!base64Image" style="text-align: center">
+        <h1>请选择一个图片</h1>
+    </div>
+
+    <ion-card *ngFor="let repo of foundRepos">
+        <!--<ion-item>-->
+            <!--<ion-thumbnail item-left>-->
+                <!--<img src="data:image/jpeg;base64,{{repo.img}}">-->
+            <!--</ion-thumbnail>-->
+            <!--<h2>{{ repo.title }}</h2>-->
+        <!--</ion-item>-->
+        <!--<ion-card-content><p>{{ repo.url }}</p></ion-card-content>-->
+        <img src='{{getServerImageUrl(repo.imageId.path)}}'/>
+
+        <ion-card-content>
+            <h2 class="card-title">
+                {{ repo.title }}
+            </h2>
+            <p>
+                {{ repo.url }}
+            </p>
+            <h2 class="card-title">
+                图片下载地址
+            </h2>
+            <p>
+                {{getServerImageUrl(repo.imageId.path)}}
+            </p>
+        </ion-card-content>
+
+        <ion-row no-padding>
+            <!--<ion-col>-->
+                <!--<button clear small danger>-->
+                    <!--<ion-icon name='star'></ion-icon>-->
+                    <!--Favorite-->
+                <!--</button>-->
+            <!--</ion-col>-->
+            <!--<ion-col text-center>-->
+                <!--<button clear small danger>-->
+                    <!--<ion-icon name='musical-notes'></ion-icon>-->
+                    <!--Listen-->
+                <!--</button>-->
+            <!--</ion-col>-->
+            <ion-col text-right>
+                <button clear small danger (click)="saveImage(repo.imageId.path)">
+                    <ion-icon name='images'></ion-icon>
+                    保存到相册
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-card>
+    <div padding *ngIf="noneResult" style="text-align: center">
+        <h3>未找到结果!</h3>
+    </div>
+</ion-content>
+<button fab fab-bottom fab-left style="z-index: 999" (click)="getPic(0)">
+    <ion-icon name="images"></ion-icon>
+    <!--<ion-icon *ngIf="!inProcess" name="camera"></ion-icon>-->
+    <!--<ion-spinner *ngIf="inProcess"></ion-spinner>-->
+</button>
+<button fab fab-bottom fab-right style="z-index: 999" (click)="getPic(1)">
+    <ion-icon name="camera"></ion-icon>
+    <!--<ion-icon *ngIf="!inProcess" name="camera"></ion-icon>-->
+    <!--<ion-spinner *ngIf="inProcess"></ion-spinner>-->
+</button>
